@@ -37,7 +37,7 @@ namespace GameServerCsharp
                 socket = socket_;
                 socket.ReceiveBufferSize = dataBufferSize;
                 socket.SendBufferSize = dataBufferSize;
-
+                //check
                 stream = socket.GetStream();
                 receiveBuffer = new byte[dataBufferSize];
                 stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallBack, null);
