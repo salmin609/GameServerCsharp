@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Net;
 using System.Net.Sockets;
@@ -15,6 +16,9 @@ namespace GameServerCsharp
 
         private static TcpListener tcpListner;
 
+        public delegate void PacketHandler(int fromClient, Packet packet);
+
+        public static Dictionary<int, PacketHandler> PacketHandlers;
         public static void Start(int maxPlayer, int port)
         {
             MaxPlayer = maxPlayer;
@@ -55,6 +59,13 @@ namespace GameServerCsharp
             {
                 clients.Add(i, new Client(i));
             }
+
+            PacketHandlers = new Dictionary<int, PacketHandler>()
+            {
+                {(int)ClientPackets.welcomeReceived, ServerHandle.WelcomeReceived}
+            };
+
+            Console.WriteLine("Initialize Successful");
         }
     }
 }
